@@ -3,6 +3,11 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 
+# if you need to access a file next to the source code, use the variable ROOT
+# for example:
+#    torch.load(os.path.join(ROOT, 'weights.pth'))
+ROOT = os.path.dirname(os.path.realpath(__file__))
+
 FOLDER = "GaitData"
 CODE_LIST = [filename.replace("_lf.txt", "") for filename in os.listdir(FOLDER) if filename.endswith("_lf.txt")]
 #COLUMN_NAMES = {'PacketCounter': 0, 'Acc_X': 1, 'Acc_Y': 2, 'Acc_Z': 3, 'FreeAcc_X': 4, 'FreeAcc_Y': 5, 'FreeAcc_Z': 6,
@@ -170,30 +175,3 @@ if __name__ == "__main__":
     print_trial_info(metadata)
     # dump plots
     dump_plot(signal, metadata, to_plot=to_plot)
-
-import os
-import iio
-import numpy as np
-
-# if you need to access a file next to the source code, use the variable ROOT
-# for example:
-#    torch.load(os.path.join(ROOT, 'weights.pth'))
-ROOT = os.path.dirname(os.path.realpath(__file__))
-
-def main(input, output, sigma):
-    u = iio.read(input)
-    print("hello world", u.shape)
-
-    v = u + np.random.randn(*u.shape) * sigma
-
-    iio.write(output, v)
-
-if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input", type=str, required=True)
-    parser.add_argument("--sigma", type=float, required=True)
-    parser.add_argument("--output", type=str, required=True)
-
-    args = parser.parse_args()
-    main(args.input, args.output, args.sigma)
