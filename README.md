@@ -1,7 +1,10 @@
-# template-python
+# A Reference Data Set for the Study of Healthy Subject Gait with Inertial Measurements Units 
 
-This repository can be used as a template for IPOL/MLBriefs demos, especially those using Python.
+The data provided in this repository are described in the following article:
 
-In this Readme file, include information about how to run the code outside of IPOL, as well as the license to the code and a very brief description of what the code does, on which paper it is based, where the official implementation is, etc.
+Please cite this article whenever you want to make a reference to this data set.
 
-The DDL.json file is shown here for information, there is no need to keep it in your git project.
+A simple online exploration tool is available online. Data can be downloaded as a zipped archive (GaitData.zip, ~30MB):
+
+Once extracted, the data can be read using the following code snippets (in Python, R). Be sure to execute those lines while in the same directory as the extracted GaitData folder.
+

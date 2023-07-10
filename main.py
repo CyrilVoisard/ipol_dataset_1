@@ -13,8 +13,6 @@ ROOT = os.path.dirname(os.path.realpath(__file__))
 
 FOLDER = "GaitData"
 CODE_LIST = [filename.replace("_lf.txt", "") for filename in os.listdir(FOLDER) if filename.endswith("_lf.txt")]
-#COLUMN_NAMES = {'PacketCounter': 0, 'Acc_X': 1, 'Acc_Y': 2, 'Acc_Z': 3, 'FreeAcc_X': 4, 'FreeAcc_Y': 5, 'FreeAcc_Z': 6,
-#                'Gyr_X': 7, 'Gyr_Y': 8, 'Gyr_Z': 9, 'Mag_X': 10, 'Mag_Y': 11, 'Mag_Z': 12}
 
 COLUMN_NAMES = {'TAX': 1, 'TAY': 2, 'TOX': 3, 'RAV': 4, 'RAZ': 5, 'RRY': 6, 'LAV': 7, 'LAZ': 8, 'LRY': 9}
 
@@ -265,8 +263,7 @@ if __name__ == "__main__":
 
     # check if the code exists.
     code = str(subject) + "-" + str(trial)
-    assert code in CODE_LIST, "The following code does not exist: {}".format(
-        code)
+    assert code in CODE_LIST, "The following code does not exist: {}".format(code)
 
     # Check if the signal to display follow the naming convention.
     assert all(

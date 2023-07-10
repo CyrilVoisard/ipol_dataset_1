@@ -1,2 +1,6 @@
 numpy
-iio==0.0.3
+os
+json
+matplotlib.pyplot
+pandas
+scipy
