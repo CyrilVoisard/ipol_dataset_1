@@ -266,8 +266,7 @@ if __name__ == "__main__":
     assert code in CODE_LIST, "The following code does not exist: {}".format(code)
 
     # Check if the signal to display follow the naming convention.
-    assert all(
-        dim_name in COLUMN_NAMES for dim_name in to_plot), "Check the names of the dimensions to plot."
+    assert all(dim_name in COLUMN_NAMES for dim_name in to_plot), "Check the names of the dimensions to plot."
 
     # load metadata and signal
     metadata = load_metadata(subject, trial)
