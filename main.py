@@ -12,6 +12,9 @@ import sys
 #    torch.load(os.path.join(ROOT, 'weights.pth'))
 ROOT = os.path.dirname(os.path.realpath(__file__))
 
+# Save the current CWD
+data_WD = os.getcwd()
+
 # Change the CWD to ROOT
 os.chdir(ROOT)
 
@@ -76,9 +79,9 @@ def print_trial_info(metadata_dict):
     '''
 
     # Dump information
-    os.chdir(ROOT) # Change the CWD to ROOT
+    os.chdir(data_WD) # Get back to the normal WD
 
-    with open("trial_info.txt", "w") as f:
+    with open("trial_info.txt", "wt") as f:
         #print(info_msg.format(**display_dict), file=f)
         for name, value in metadata_dict.items():
             f.write(f"{name} = {value}\n")
@@ -291,8 +294,6 @@ if __name__ == "__main__":
     
     # dump trial info
     print_trial_info(metadata)
-    
-    
-    
+
     # dump plots
     dump_plot(signal, metadata, to_plot=to_plot)
