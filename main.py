@@ -52,6 +52,8 @@ def print_trial_info(metadata_dict):
         Time series of the trial.
 
     """
+    
+    '''
     display_dict = {'Subject': "Subject: {Subject}".format(**metadata_dict),
                     'Trial': "Trial: {Trial}".format(**metadata_dict),
                     'Age': "Age (year): {Age}".format(**metadata_dict),
@@ -71,6 +73,8 @@ def print_trial_info(metadata_dict):
     {Weight:<30}| {LeftGaitCycles:<30}
     {UTurnDuration:<30} | {RightGaitCycles:<30}
     """
+    '''
+
     # Dump information
     with open("trial_info.txt", "w") as f:
         #print(info_msg.format(**display_dict), file=f)
