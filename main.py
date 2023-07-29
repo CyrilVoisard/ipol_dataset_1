@@ -11,6 +11,9 @@ from scipy import interpolate
 #    torch.load(os.path.join(ROOT, 'weights.pth'))
 ROOT = os.path.dirname(os.path.realpath(__file__))
 
+# Change the CWD to ROOT
+os.chdir(ROOT)
+
 FOLDER = "GaitData"
 CODE_LIST = [filename.replace("_lf.txt", "") for filename in os.listdir(FOLDER) if filename.endswith("_lf.txt")]
 
