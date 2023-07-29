@@ -58,7 +58,7 @@ def print_trial_info(metadata_dict):
                     'Gender': "Gender: {Gender}".format(**metadata_dict),
                     'Height': "Height (m): {Height}".format(**metadata_dict),
                     'Weight': "Weight (kg): {Weight}".format(**metadata_dict),
-                    #'WalkingSpeed': "WalkingSpeed (m/s): {WalkingSpeed}".format(2000/(metadata_dict['TrialBoundaries'][1]-metadata_dict['TrialBoundaries'][0])),
+                    'WalkingSpeed': "WalkingSpeed (m/s): {WalkingSpeed}".format(2000/(metadata_dict['TrialBoundaries'][1]-metadata_dict['TrialBoundaries'][0])),
                     'UTurnDuration': "U-Turn Duration (s): {}".format((metadata_dict['UTurnBoundaries'][1]-metadata_dict['UTurnBoundaries'][0])/100),
                     'LeftGaitCycles': '    - Left foot: {}'.format(len(metadata_dict['LeftFootActivity'])),
                     'RightGaitCycles': '    - Right foot: {}'.format(len(metadata_dict['RightFootActivity']))
@@ -73,7 +73,10 @@ def print_trial_info(metadata_dict):
     """
     # Dump information
     with open("trial_info.txt", "w") as f:
-        print(info_msg.format(**display_dict), file=f)
+        #print(info_msg.format(**display_dict), file=f)
+        for name, value for metadata_dict.items():
+            f.write(f"{name} = {value}\n")
+        
 
 def load_XSens(filename):
     
