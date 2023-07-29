@@ -76,6 +76,8 @@ def print_trial_info(metadata_dict):
     '''
 
     # Dump information
+    os.chdir(ROOT) # Change the CWD to ROOT
+
     with open("trial_info.txt", "w") as f:
         #print(info_msg.format(**display_dict), file=f)
         for name, value in metadata_dict.items():
