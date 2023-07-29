@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.signal import butter, filtfilt
 from scipy import interpolate
+import sys
 
 # if you need to access a file next to the source code, use the variable ROOT
 # for example:
@@ -274,7 +275,15 @@ if __name__ == "__main__":
     # load metadata and signal
     metadata = load_metadata(subject, trial)
     signal = load_signal(subject, trial)
+    
+    # DEBUG: print metadata and exit
+    print(metadata)    
+    sys.exit(0)
+    
     # dump trial info
     print_trial_info(metadata)
+    
+    
+    
     # dump plots
     dump_plot(signal, metadata, to_plot=to_plot)
