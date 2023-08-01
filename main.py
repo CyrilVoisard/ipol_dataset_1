@@ -212,7 +212,7 @@ def dump_plot(signal, metadata_dict, to_plot=['TAX', 'TAY', 'TOX', 'RAV', 'RAZ',
         ax.set_xlim(0, n_samples/100)
         # plot
         dim = COLUMN_NAMES[dim_name]
-        ax.plot(tt, signal[:, dim])
+        ax.plot(tt, signal.iloc[:, dim])
         # ylim
         if dim_name[0] in ["R", "L"]:
             if dim_name[1] == "A":
