@@ -172,8 +172,16 @@ def load_signal(subject, trial):
     signal_lb = signal_lb[0:t_max]
     signal_lf = signal_lf[0:t_max]
     signal_rf = signal_rf[0:t_max]
+
+    # Pour TOX, calcul plus complexe
+    gyr_x = data_tronc['Gyr_X']
+    angle_x_full = np.cumsum(gyr_x)/100
+    a = np.median(angle_x_full[0:len(angle_x_full) // 2])  # Tout début du signal
+    z = np.median(angle_x_full[len(angle_x_full) // 2:len(acc_x_cum)])  # Fin du signal, en enlevant la toute fin qui posait
+    angle_x_full = np.sign(z)*(angle_x_full - a)*180/abs(z)
+    angle_x_full = angle_x_full[0:t_max]
     
-    sig = {'Time': signal_lb["PacketCounter"], 'TAX': signal_lb["Acc_X"], 'TAY': signal_lb["Acc_Y"], 'TOX': 2, 
+    sig = {'Time': signal_lb["PacketCounter"], 'TAX': signal_lb["Acc_X"], 'TAY': signal_lb["Acc_Y"], 'TOX': angle_x_full, 
            'RAV': np.sqrt(signal_rf["FreeAcc_X"]**2 + signal_rf["FreeAcc_Y"]**2 + signal_rf["FreeAcc_Z"]**2), 
            'RAZ': signal_rf["FreeAcc_Z"], 'RRY': signal_rf["Gyr_Y"], 
            'LAV': np.sqrt(signal_lf["FreeAcc_X"]**2 + signal_lf["FreeAcc_Y"]**2 + signal_lf["FreeAcc_Z"]**2), 
