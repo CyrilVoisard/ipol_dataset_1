@@ -214,13 +214,13 @@ def dump_plot(signal, metadata_dict, to_plot=['TAX', 'TAY', 'TOX', 'RAV', 'RAZ',
         dim = COLUMN_NAMES[dim_name]
         ax.plot(tt, signal.iloc[:, dim])
         # ylim
-        if dim_name[0] in ["R", "L"]:
-            if dim_name[1] == "A":
-                ax.set_ylim(acc_ylim)
-            elif dim_name[1] == "R":
-                ax.set_ylim(rot_ylim)
-        elif dim_name[0:2]== "TA":
-            ax.set_ylim(acc_tronc_ylim)
+        #if dim_name[0] in ["R", "L"]:
+         #   if dim_name[1] == "A":
+          #      ax.set_ylim(acc_ylim)
+           # elif dim_name[1] == "R":
+            #    ax.set_ylim(rot_ylim)
+        #elif dim_name[0:2]== "TA":
+         #   ax.set_ylim(acc_tronc_ylim)
         
         # number of yticks
         plt.locator_params(axis='y', nbins=6)
