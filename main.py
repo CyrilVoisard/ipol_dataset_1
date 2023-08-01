@@ -177,7 +177,7 @@ def load_signal(subject, trial):
     gyr_x = signal_lb['Gyr_X']
     angle_x_full = np.cumsum(gyr_x)/100
     a = np.median(angle_x_full[0:len(angle_x_full) // 2])  # Tout début du signal
-    z = np.median(angle_x_full[len(angle_x_full) // 2:len(acc_x_cum)])  # Fin du signal, en enlevant la toute fin qui posait
+    z = np.median(angle_x_full[len(angle_x_full) // 2:len(angle_x_full)])  # Fin du signal, en enlevant la toute fin qui posait
     angle_x_full = np.sign(z)*(angle_x_full - a)*180/abs(z)
     
     sig = {'Time': signal_lb["PacketCounter"], 'TAX': signal_lb["Acc_X"], 'TAY': signal_lb["Acc_Y"], 'TOX': angle_x_full, 
