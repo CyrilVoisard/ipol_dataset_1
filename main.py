@@ -52,28 +52,6 @@ def print_trial_info(metadata_dict):
     metadata_dict : dict
         Metadata of the trial.
     """
-    
-    '''
-    display_dict = {'Subject': "Subject: {Subject}".format(**metadata_dict),
-                    'Trial': "Trial: {Trial}".format(**metadata_dict),
-                    'Age': "Age (year): {Age}".format(**metadata_dict),
-                    'Gender': "Gender: {Gender}".format(**metadata_dict),
-                    'Height': "Height (m): {Height}".format(**metadata_dict),
-                    'Weight': "Weight (kg): {Weight}".format(**metadata_dict),
-                    'WalkingSpeed': "WalkingSpeed (m/s): {WalkingSpeed}".format(round(2000/(metadata_dict['TrialBoundaries'][1]-metadata_dict['TrialBoundaries'][0]), 3)),
-                    'UTurnDuration': "U-Turn Duration (s): {}".format((metadata_dict['UTurnBoundaries'][1]-metadata_dict['UTurnBoundaries'][0])/100),
-                    'LeftGaitCycles': '    - Left foot: {}'.format(len(metadata_dict['LeftFootActivity'])),
-                    'RightGaitCycles': '   - Right foot: {}'.format(len(metadata_dict['RightFootActivity']))
-                    }
-    info_msg = """
-    {Subject:^30}|{Trial:^30}
-    ------------------------------+------------------------------
-    {Age:<30}| {WalkingSpeed:<30}
-    {Height:<30}| Number of footsteps:
-    {Weight:<30}| {LeftGaitCycles:<30}
-    {UTurnDuration:<30}| {RightGaitCycles:<30}
-    """
-    '''
 
     display_dict = {'Subject': "Subject: {Subject}".format(**metadata_dict),
                     'Trial': "Trial: {Trial}".format(**metadata_dict),
@@ -84,7 +62,7 @@ def print_trial_info(metadata_dict):
                     'WalkingSpeed': "WalkingSpeed (m/s): {}".format(round(2000/(metadata_dict['TrialBoundaries'][1]-metadata_dict['TrialBoundaries'][0]), 3)),
                     'UTurnDuration': "U-Turn Duration (s): {}".format((metadata_dict['UTurnBoundaries'][1]-metadata_dict['UTurnBoundaries'][0])/100),
                     'LeftGaitCycles': '    - Left foot: {}'.format(len(metadata_dict['LeftFootEvents'])),
-                    'RightGaitCycles': '   - Right foot: {}'.format(len(metadata_dict['RightFootEvents']))
+                    'RightGaitCycles': '    - Right foot: {}'.format(len(metadata_dict['RightFootEvents']))
                     }
     info_msg = """
     {Subject:^30}|{Trial:^30}
