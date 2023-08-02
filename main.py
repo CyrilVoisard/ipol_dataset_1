@@ -21,7 +21,7 @@ os.chdir(ROOT)
 FOLDER = "GaitData"
 CODE_LIST = [filename.replace("_lf.txt", "") for filename in os.listdir(FOLDER) if filename.endswith("_lf.txt")]
 
-COLUMN_NAMES = {'TAX': 1, 'TAY': 2, 'TOX': 3, 'RAV': 4, 'RAZ': 5, 'RRY': 6, 'LAV': 7, 'LAZ': 8, 'LRY': 9}
+COLUMN_NAMES = {'TOX': 1, 'TAX': 2, 'TAY': 3, 'RAV': 4, 'RAZ': 5, 'RRY': 6, 'LAV': 7, 'LAZ': 8, 'LRY': 9}
 
 
 def load_metadata(subject, trial):
