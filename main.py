@@ -60,10 +60,10 @@ def print_trial_info(metadata_dict):
                     'Gender': "Gender: {Gender}".format(**metadata_dict),
                     'Height': "Height (m): {Height}".format(**metadata_dict),
                     'Weight': "Weight (kg): {Weight}".format(**metadata_dict),
-                    'WalkingSpeed': "WalkingSpeed (m/s): {WalkingSpeed}".format(2000/(metadata_dict['TrialBoundaries'][1]-metadata_dict['TrialBoundaries'][0])),
+                    'WalkingSpeed': "WalkingSpeed (m/s): {WalkingSpeed}".format(round(2000/(metadata_dict['TrialBoundaries'][1]-metadata_dict['TrialBoundaries'][0]), 3)),
                     'UTurnDuration': "U-Turn Duration (s): {}".format((metadata_dict['UTurnBoundaries'][1]-metadata_dict['UTurnBoundaries'][0])/100),
                     'LeftGaitCycles': '    - Left foot: {}'.format(len(metadata_dict['LeftFootActivity'])),
-                    'RightGaitCycles': '    - Right foot: {}'.format(len(metadata_dict['RightFootActivity']))
+                    'RightGaitCycles': '   - Right foot: {}'.format(len(metadata_dict['RightFootActivity']))
                     }
     info_msg = """
     {Subject:^30}|{Trial:^30}
@@ -71,7 +71,7 @@ def print_trial_info(metadata_dict):
     {Age:<30}| {WalkingSpeed:<30}
     {Height:<30}| Number of footsteps:
     {Weight:<30}| {LeftGaitCycles:<30}
-    {UTurnDuration:<30} | {RightGaitCycles:<30}
+    {UTurnDuration:<30}| {RightGaitCycles:<30}
     """
     '''
 
