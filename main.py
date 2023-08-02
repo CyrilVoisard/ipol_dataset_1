@@ -83,8 +83,8 @@ def print_trial_info(metadata_dict):
                     'Weight': "Weight (kg): {Weight}".format(**metadata_dict),
                     'WalkingSpeed': "WalkingSpeed (m/s): {}".format(2000/(metadata_dict['TrialBoundaries'][1]-metadata_dict['TrialBoundaries'][0])),
                     'UTurnDuration': "U-Turn Duration (s): {}".format((metadata_dict['UTurnBoundaries'][1]-metadata_dict['UTurnBoundaries'][0])/100),
-                    'LeftGaitCycles': '    - Left foot: {}'.format(len(metadata_dict['LeftFootActivity'])),
-                    'RightGaitCycles': '    - Right foot: {}'.format(len(metadata_dict['RightFootActivity']))
+                    'LeftGaitCycles': '    - Left foot: {}'.format(len(metadata_dict['LeftFootEvents'])),
+                    'RightGaitCycles': '    - Right foot: {}'.format(len(metadata_dict['RightFootEvents']))
                     }
     info_msg = """
     {Subject:^30}|{Trial:^30}
