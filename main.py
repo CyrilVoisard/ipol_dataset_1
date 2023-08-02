@@ -277,7 +277,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     subject, trial = args.subject, args.trial
-    to_plot = ['TAX', 'TAY', 'TOX', 'RAV', 'RAZ', 'RRY', 'LAV', 'LAZ', 'LRY']
+    to_plot = ['TOX', 'TAX', 'TAY', 'RAV', 'RAZ', 'RRY', 'LAV', 'LAZ', 'LRY']
 
     # check if the code exists.
     code = str(subject) + "-" + str(trial)
