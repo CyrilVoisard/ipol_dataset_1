@@ -230,7 +230,7 @@ def dump_plot(signal, metadata_dict, to_plot=['TAX', 'TAY', 'TOX', 'RAV', 'RAZ',
         rot_ylim = [rot.min()-20, rot.max()+20]
 
     for dim_name in to_plot:
-        print(dim_name, COLUMN_NAMES[dim_name])
+        #print(dim_name, COLUMN_NAMES[dim_name])
         fig, ax = plt.subplots(figsize=(10, 4))
         # xlim
         ax.set_xlim(0, n_samples/100)
