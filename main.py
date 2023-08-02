@@ -186,7 +186,7 @@ def load_signal(subject, trial):
     return signal
 
 
-def dump_plot(signal, metadata_dict, to_plot=['TAX', 'TAY', 'TOX', 'RAV', 'RAZ', 'RRY', 'LAV', 'LAZ', 'LRY']):
+def dump_plot(signal, metadata_dict, to_plot=['TOX', 'TAX', 'TAY', 'RAV', 'RAZ', 'RRY', 'LAV', 'LAZ', 'LRY']):
 
     n_samples, _ = signal.shape
     tt = np.arange(n_samples) / 100
