@@ -175,7 +175,7 @@ def load_signal(subject, trial):
     z = np.median(angle_x_full[len(angle_x_full) // 2:len(angle_x_full)])  # Fin du signal, en enlevant la toute fin qui posait
     angle_x_full = np.sign(z)*(angle_x_full - a)*180/abs(z)
     
-    sig = {'Time': signal_lb["PacketCounter"], 'TAX': signal_lb["Acc_X"], 'TAY': signal_lb["Acc_Y"], 'TOX': angle_x_full, 
+    sig = {'Time': signal_lb["PacketCounter"], 'TOX': angle_x_full, 'TAX': signal_lb["Acc_X"], 'TAY': signal_lb["Acc_Y"], 
            'RAV': np.sqrt(signal_rf["FreeAcc_X"]**2 + signal_rf["FreeAcc_Y"]**2 + signal_rf["FreeAcc_Z"]**2), 
            'RAZ': signal_rf["FreeAcc_Z"], 'RRY': signal_rf["Gyr_Y"], 
            'LAV': np.sqrt(signal_lf["FreeAcc_X"]**2 + signal_lf["FreeAcc_Y"]**2 + signal_lf["FreeAcc_Z"]**2), 
