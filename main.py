@@ -293,10 +293,6 @@ if __name__ == "__main__":
     metadata = load_metadata(subject, trial)
     signal = load_signal(subject, trial)
     
-    # DEBUG: print metadata
-    # print(metadata)    
-    #sys.exit(0)
-    
     # dump trial info
     print_trial_info(metadata)
 
