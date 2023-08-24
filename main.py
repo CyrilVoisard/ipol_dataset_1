@@ -150,7 +150,7 @@ def import_XSens(path, start=0, end=200, order=8, fc=14):
 
 
 def filter_sig(data, type_sig, order, fc):
-     """Application of Butterworth low-pass filter to a Dataframe
+    """Application of Butterworth low-pass filter to a Dataframe
 
     Arguments:
         data {dataframe} -- pandas dataframe
@@ -163,7 +163,6 @@ def filter_sig(data, type_sig, order, fc):
     Pandas dataframe
         data
     """
-    
     data[type_sig + "_X"] = low_pass_filter(data[type_sig + "_X"], order, fc)
     data[type_sig + "_Y"] = low_pass_filter(data[type_sig + "_Y"], order, fc)
     data[type_sig + "_Z"] = low_pass_filter(data[type_sig + "_Z"], order, fc)
