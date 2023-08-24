@@ -15,10 +15,10 @@ import sys
 #    torch.load(os.path.join(ROOT, 'weights.pth'))
 ROOT = os.path.dirname(os.path.realpath(__file__))
 
-# Save the current CWD
+# save the current CWD
 data_WD = os.getcwd()
 
-# Change the CWD to ROOT
+# change the CWD to ROOT
 os.chdir(ROOT)
 
 FOLDER = "GaitData"
@@ -37,13 +37,14 @@ def load_metadata(subject, trial):
     Returns
     -------
     dict
-        Metadata
+        metadata_dict
     """
 
     code = str(subject) + "-" + str(trial)
     fname = os.path.join(FOLDER, code)
     with open(fname + ".json") as metadata_file:
         metadata_dict = json.load(metadata_file)
+        
     return metadata_dict
 
 
@@ -76,16 +77,26 @@ def print_trial_info(metadata_dict):
     {UTurnDuration:<30}| {RightGaitCycles:<30}
     """
 
-    # Dump information
+    # dump information
     os.chdir(data_WD) # Get back to the normal WD
 
     with open("trial_info.txt", "wt") as f:
         print(info_msg.format(**display_dict), file=f)
-        #for name, value in metadata_dict.items():
+        # for name, value in metadata_dict.items():
          #   f.write(f"{name} = {value}\n")
         
 
 def load_XSens(filename):
+    """Load the data from a file.
+
+    Arguments:
+        filename {str} -- File path
+
+    Returns
+    -------
+    Pandas dataframe
+        signal
+    """
     
     signal = pd.read_csv(filename, delimiter="\t", skiprows=1, header=0)
     t = signal["PacketCounter"]
@@ -109,37 +120,77 @@ def load_XSens(filename):
     return signal
 
 
-def import_XSens(path, start=0, end=200, ordre=8, fc=14):
+def import_XSens(path, start=0, end=200, order=8, fc=14):
+    """Import and pre-process the data from a file.
+
+    Arguments:
+        filename {str} -- file path
+        start {int} -- start of the calibration period
+        end {int} -- end of the calibration period
+        order {int} -- order of the Butterworth low-pass filter
+        fc {int} -- cut-off frequency of the Butterworth low-pass filter
+
+    Returns
+    -------
+    Pandas dataframe
+        data
+    """
+    
     data = load_XSens(path)
     
     data["FreeAcc_X"] = data["Acc_X"] - np.mean(data["Acc_X"][start:end])
     data["FreeAcc_Y"] = data["Acc_Y"] - np.mean(data["Acc_Y"][start:end])
     data["FreeAcc_Z"] = data["Acc_Z"] - np.mean(data["Acc_Z"][start:end])
 
-    data = filtre_sig(data, "Acc", ordre, fc)
-    data = filtre_sig(data, "FreeAcc", ordre, fc)
-    data = filtre_sig(data, "Gyr", ordre, fc)
+    data = filter_sig(data, "Acc", order, fc)
+    data = filter_sig(data, "FreeAcc", order, fc)
+    data = filter_sig(data, "Gyr", order, fc)
 
     return data
 
 
-def filtre_sig(data, type_sig, ordre, fc):
-    data[type_sig + "_X"] = filtre_passe_bas(data[type_sig + "_X"], ordre, fc)
-    data[type_sig + "_Y"] = filtre_passe_bas(data[type_sig + "_Y"], ordre, fc)
-    data[type_sig + "_Z"] = filtre_passe_bas(data[type_sig + "_Z"], ordre, fc)
+def filter_sig(data, type_sig, order, fc):
+     """Application of Butterworth low-pass filter to a Dataframe
+
+    Arguments:
+        data {dataframe} -- pandas dataframe
+        type_sig {str} -- "Acc", "Gyr" or "Mag"
+        order {int} -- order of the Butterworth low-pass filter
+        fc {int} -- cut-off frequency of the Butterworth low-pass filter
+
+    Returns
+    -------
+    Pandas dataframe
+        data
+    """
+    
+    data[type_sig + "_X"] = low_pass_filter(data[type_sig + "_X"], order, fc)
+    data[type_sig + "_Y"] = low_pass_filter(data[type_sig + "_Y"], order, fc)
+    data[type_sig + "_Z"] = low_pass_filter(data[type_sig + "_Z"], order, fc)
 
     return data
 
 
-def filtre_passe_bas(sig, ordre=8, fc=14, fe=100):
-    # Fréquence d'échantillonnage fe en Hz
-    # Fréquence de nyquist
+def low_pass_filter(sig, order=8, fc=14, fe=100):
+    """Definition of a Butterworth low-pass filter
+
+    Arguments:
+        sig {dataframe} -- pandas dataframe
+        order {int} -- order of the Butterworth low-pass filter
+        fc {int} -- cut-off frequency of the Butterworth low-pass filter
+        fe {int} -- acquisition frequency for the data
+    Returns
+    -------
+    ndarray
+        filter
+    """
+    
     f_nyq = fe / 2.  # Hz
 
-    # Préparation du filtre de Butterworth en passe-bas
-    (b, a) = butter(N=ordre, Wn=(fc / f_nyq), btype='low', analog=False)
+    # definition of the Butterworth low-pass filter
+    (b, a) = butter(N=order, Wn=(fc / f_nyq), btype='low', analog=False)
 
-    # Application du filtre
+    # application
     return filtfilt(b, a, sig)
 
 
@@ -147,17 +198,14 @@ def filtre_passe_bas(sig, ordre=8, fc=14, fe=100):
 def load_signal(subject, trial):
     """Return the signal associated with the subject-trial pair.
 
-    Parameters
-    ----------
-    subject : int
-        Subject number
-    trial : int
-        Trial number
-
+    Arguments:
+        subject {int} -- subject number
+        trial {int} -- trial number
+        
     Returns
     -------
     numpy array
-        Signal
+        signal
 
     """
     code = str(subject) + "-" + str(trial)
@@ -171,7 +219,7 @@ def load_signal(subject, trial):
     signal_lf = signal_lf[0:t_max]
     signal_rf = signal_rf[0:t_max]
 
-    # Pour TOX, calcul plus complexe
+    # TOX computation
     gyr_x = signal_lb['Gyr_X']
     angle_x_full = np.cumsum(gyr_x)/100
     a = np.median(angle_x_full[0:len(angle_x_full) // 2])  # Tout début du signal
@@ -190,7 +238,12 @@ def load_signal(subject, trial):
 
 
 def dump_plot(signal, metadata_dict, to_plot=['TOX', 'TAX', 'TAY', 'RAV', 'RAZ', 'RRY', 'LAV', 'LAZ', 'LRY']):
+    """Plot all the data. 
 
+    Arguments:
+        signal {dataframe} --  Dataframe of the trial.
+        metadata_dict {dict} --  Metadata of the trial.
+    """
     n_samples, _ = signal.shape
     tt = np.arange(n_samples) / 100
 
@@ -211,21 +264,12 @@ def dump_plot(signal, metadata_dict, to_plot=['TOX', 'TAX', 'TAY', 'RAV', 'RAZ',
         rot_ylim = [rot.min()-20, rot.max()+20]
 
     for dim_name in to_plot:
-        #print(dim_name, COLUMN_NAMES[dim_name])
         fig, ax = plt.subplots(figsize=(10, 4))
         # xlim
         ax.set_xlim(0, n_samples/100)
         # plot
         dim = COLUMN_NAMES[dim_name]
         ax.plot(tt, signal.iloc[:, dim])
-        # ylim
-        #if dim_name[0] in ["R", "L"]:
-         #   if dim_name[1] == "A":
-          #      ax.set_ylim(acc_ylim)
-           # elif dim_name[1] == "R":
-            #    ax.set_ylim(rot_ylim)
-        #elif dim_name[0:2]== "TA":
-         #   ax.set_ylim(acc_tronc_ylim)
         
         # number of yticks
         plt.locator_params(axis='y', nbins=6)
@@ -286,7 +330,7 @@ if __name__ == "__main__":
     code = str(subject) + "-" + str(trial)
     assert code in CODE_LIST, "The following code does not exist: {}".format(code)
 
-    # Check if the signal to display follow the naming convention.
+    # check if the signal to display follow the naming convention.
     assert all(dim_name in COLUMN_NAMES for dim_name in to_plot), "Check the names of the dimensions to plot."
 
     # load metadata and signal
