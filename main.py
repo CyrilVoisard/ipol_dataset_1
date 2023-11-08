@@ -119,9 +119,9 @@ def load_XSens(filename):
     signal = pd.DataFrame(data=d)"""
 
     # interest signals centered on zero
-    signal["FreeAcc_X"] = signal["Acc_X"] - np.mean(signal["Acc_X"][start:end])
-    signal["FreeAcc_Y"] = signal["Acc_Y"] - np.mean(signal["Acc_Y"][start:end])
-    signal["FreeAcc_Z"] = signal["Acc_Z"] - np.mean(signal["Acc_Z"][start:end])
+    signal["FreeAcc_X"] = signal["Acc_X"] - np.mean(signal["Acc_X"])
+    signal["FreeAcc_Y"] = signal["Acc_Y"] - np.mean(signal["Acc_Y"])
+    signal["FreeAcc_Z"] = signal["Acc_Z"] - np.mean(signal["Acc_Z"])
 
     return signal
 
