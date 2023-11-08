@@ -82,8 +82,6 @@ def print_trial_info(metadata_dict):
 
     with open("trial_info.txt", "wt") as f:
         print(info_msg.format(**display_dict), file=f)
-        # for name, value in metadata_dict.items():
-         #   f.write(f"{name} = {value}\n")
         
 
 def load_XSens(filename):
