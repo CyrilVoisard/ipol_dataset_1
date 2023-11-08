@@ -143,9 +143,9 @@ def import_XSens(path, start=0, end=200, order=8, fc=14):
     data = load_XSens(path)
 
     # interest signals centered on zero
-    data["FreeAcc_X"] = data["Acc_X"] - np.mean(data["Acc_X"][start:end])
-    data["FreeAcc_Y"] = data["Acc_Y"] - np.mean(data["Acc_Y"][start:end])
-    data["FreeAcc_Z"] = data["Acc_Z"] - np.mean(data["Acc_Z"][start:end])
+    data["FreeAcc_X"] = data["Acc_X"] - np.mean(data["Acc_X"])
+    data["FreeAcc_Y"] = data["Acc_Y"] - np.mean(data["Acc_Y"])
+    data["FreeAcc_Z"] = data["Acc_Z"] - np.mean(data["Acc_Z"])
 
     return data
 
