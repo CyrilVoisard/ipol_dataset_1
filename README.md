@@ -6,7 +6,7 @@ This repository provides a dataset in the folder "GaitData" consisting of 110 mu
 
 This dataset also contains extensive signal metadata, including the start and end timestamps of each footstep, along with contextual information for each trial and subject (age, gender, weight). 
 
-Gait events correspond to stride delimitations provided with two previously validated algorithms from the literature []. All these detections were then manually checked. 
+Gait events correspond to stride delimitations provided with two previously validated algorithms from the literature [Remi Barrois et al., Observational study of 180° turning strategies using inertial measurement units and fall risk in poststroke hemiparetic patients, Frontiers in Neurology, 2017] & [Voisard et al., Automatic Gait Events Detection with Inertial Measurement Units: Healthy Subjects and Moderate to Severe Impaired Patients, Journal of NeuroEngineering and Rehabilitation, under review, 2023]. All these detections were then manually checked. 
 
 Files are identified by their filename, which associates the number dedicated to the subject and the number of the trial. The filename for the third trial of the second subject is 2-3.
 - For the trunk sensor: [filename]_lb.txt;
