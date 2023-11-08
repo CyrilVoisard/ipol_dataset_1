@@ -99,8 +99,9 @@ def load_XSens(filename):
     """
     
     signal = pd.read_csv(filename, delimiter="\t", skiprows=1, header=0)
-    t = signal["PacketCounter"]
-    t_0 = t[0]
+    signal["PacketCounter"] = (signal["PacketCounter"] - signal["PacketCounter"][0])/100  # conversion (sample to seconds)
+    """t = signal["PacketCounter"]
+    t = t[0]
     t_fin = t[len(t) - 1]
 
     time = [i for i in range(int(t_0), int(t_fin) + 1)]
@@ -115,7 +116,12 @@ def load_XSens(filename):
         y = f(time)
         d[colonne] = y.tolist()
 
-    signal = pd.DataFrame(data=d)
+    signal = pd.DataFrame(data=d)"""
+
+    # interest signals centered on zero
+    signal["FreeAcc_X"] = signal["Acc_X"] - np.mean(signal["Acc_X"][start:end])
+    signal["FreeAcc_Y"] = signal["Acc_Y"] - np.mean(signal["Acc_Y"][start:end])
+    signal["FreeAcc_Z"] = signal["Acc_Z"] - np.mean(signal["Acc_Z"][start:end])
 
     return signal
 
@@ -125,8 +131,6 @@ def import_XSens(path, start=0, end=200, order=8, fc=14):
 
     Arguments:
         filename {str} -- file path
-        start {int} -- start of the calibration period
-        end {int} -- end of the calibration period
         order {int} -- order of the Butterworth low-pass filter
         fc {int} -- cut-off frequency of the Butterworth low-pass filter
 
@@ -137,14 +141,11 @@ def import_XSens(path, start=0, end=200, order=8, fc=14):
     """
     
     data = load_XSens(path)
-    
+
+    # interest signals centered on zero
     data["FreeAcc_X"] = data["Acc_X"] - np.mean(data["Acc_X"][start:end])
     data["FreeAcc_Y"] = data["Acc_Y"] - np.mean(data["Acc_Y"][start:end])
     data["FreeAcc_Z"] = data["Acc_Z"] - np.mean(data["Acc_Z"][start:end])
-
-    """data = filter_sig(data, "Acc", order, fc)
-    data = filter_sig(data, "FreeAcc", order, fc)
-    data = filter_sig(data, "Gyr", order, fc)"""
 
     return data
 
@@ -209,9 +210,9 @@ def load_signal(subject, trial):
     """
     code = str(subject) + "-" + str(trial)
     fname = os.path.join(FOLDER, code)
-    signal_lb = import_XSens(fname+"_lb.txt")
-    signal_lf = import_XSens(fname+"_lf.txt")
-    signal_rf = import_XSens(fname+"_rf.txt")
+    signal_lb = load_XSens(fname+"_lb.txt")
+    signal_lf = load_XSens(fname+"_lf.txt")
+    signal_rf = load_XSens(fname+"_rf.txt")
     
     t_max = min(len(signal_lb), len(signal_rf), len(signal_lf))
     signal_lb = signal_lb[0:t_max]
