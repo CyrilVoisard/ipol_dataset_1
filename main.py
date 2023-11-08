@@ -138,11 +138,11 @@ def import_XSens(path, start=0, end=200, order=8, fc=14):
     
     data = load_XSens(path)
     
-    """data["FreeAcc_X"] = data["Acc_X"] - np.mean(data["Acc_X"][start:end])
+    data["FreeAcc_X"] = data["Acc_X"] - np.mean(data["Acc_X"][start:end])
     data["FreeAcc_Y"] = data["Acc_Y"] - np.mean(data["Acc_Y"][start:end])
     data["FreeAcc_Z"] = data["Acc_Z"] - np.mean(data["Acc_Z"][start:end])
 
-    data = filter_sig(data, "Acc", order, fc)
+    """data = filter_sig(data, "Acc", order, fc)
     data = filter_sig(data, "FreeAcc", order, fc)
     data = filter_sig(data, "Gyr", order, fc)"""
 
