@@ -16,7 +16,7 @@ Files are identified by their filename, which associates the number dedicated to
 
 ## Demo and accessibility 
 
-The data provided in this repository are described in the following article: XXXXXXXXXXX
+The data provided in this repository are described in the following article: https://www.ipol.im/pub/art/2023/497/
 
 Please cite this article whenever you want to make a reference to this data set.
 A simple online exploration tool is available online. Data can be downloaded as a zipped archive (GaitData.zip, ~30MB). 
