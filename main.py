@@ -185,6 +185,9 @@ def dump_plot(signal, metadata_dict, to_plot=['TOX', 'TAX', 'TAY', 'RAV', 'RAZ',
         
         # number of yticks
         plt.locator_params(axis='y', nbins=6)
+        # xlabel
+        xlabel = "Time (s)"
+        ax.set_xlabel(xlabel, fontdict={"size": 15})
         # ylabel
         ylabel = "m/s²" if dim_name[1] == "A" else "deg/s"
         ax.set_ylabel(ylabel, fontdict={"size": 15})
