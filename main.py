@@ -61,7 +61,7 @@ def print_trial_info(metadata_dict):
                     'Trial': "Trial: {Trial}".format(**metadata_dict),
                     'Age': "Age (year): {Age}".format(**metadata_dict),
                     'Gender': "Gender: {Gender}".format(**metadata_dict),
-                    'Height': "Height (m): {Height}".format(**metadata_dict),
+                    'Height': "Height (cm): {Height}".format(**metadata_dict),
                     'Weight': "Weight (kg): {Weight}".format(**metadata_dict),
                     'WalkingSpeed': "WalkingSpeed (m/s): {}".format(round(2000/(metadata_dict['TrialBoundaries'][1]-metadata_dict['TrialBoundaries'][0]), 3)),
                     'UTurnDuration': "U-Turn Duration (s): {}".format((metadata_dict['UTurnBoundaries'][1]-metadata_dict['UTurnBoundaries'][0])/100),
